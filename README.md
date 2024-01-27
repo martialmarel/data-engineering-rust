@@ -1,6 +1,5 @@
-# rust-new-project-template
-A good starting point for a new Rust project
+# data-engineering-rus
 
-## References
+It's a central Git repository to serve as a sandbox for code created in the [Rust data engineering course](https://www.coursera.org/learn/data-engineering-rust/).
 
-* [rust-cli-template](https://github.com/kbknapp/rust-cli-template)
+The folder organization it's a subfolders for each week/module of the course.
