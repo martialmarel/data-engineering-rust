@@ -31,15 +31,18 @@ use rand::seq::SliceRandom; // rand is a random number generation library in Rus
 use rand::thread_rng;
 
 fn main() {
-    let mut fruit = vec![
-        "Orange",
-        "Fig",
-        "Pomegranate",
-        "Cherry",
-        "Apple",
-        "Pear",
-        "Peach",
-    ];
+    // read stdin and create a vector of fruit
+    let mut fruit = vec![];
+    loop {
+        println!("Enter a fruit (or press Enter to finish): ");
+        let mut input = String::new();
+        std::io::stdin().read_line(&mut input).unwrap();
+        let input = input.trim();
+        if input.is_empty() {
+            break;
+        }
+        fruit.push(input.to_owned());
+    }
 
     // Scramble (shuffle) the fruit
     let mut rng = thread_rng();
