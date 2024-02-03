@@ -44,9 +44,13 @@ fn main() {
         fruit.push(input.to_owned());
     }
 
-    // Scramble (shuffle) the fruit
     let mut rng = thread_rng();
+    // Scramble (shuffle) the fruit
     fruit.shuffle(&mut rng);
+
+    // Choose a random fruit to remove
+    let random_fruit = fruit.choose(&mut rng);
+    println!("A random fruit choosen :{:?}", random_fruit);
 
     // Print out the fruit salad
     println!("Fruit Salad ({}): ", fruit.len());
