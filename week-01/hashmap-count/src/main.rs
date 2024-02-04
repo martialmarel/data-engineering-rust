@@ -47,7 +47,51 @@ fn logic(numbers: Vec<i32>) -> Vec<(i32, u32)> {
     result
 }
 
+fn replace_punctuation_with_space(input: &str) -> String {
+    input
+        .chars()
+        .map(|c| {
+            if c.is_alphanumeric() || c.is_whitespace() {
+                c
+            } else {
+                ' '
+            }
+        })
+        .collect()
+}
+
+fn logic_sentence(sentence: &str) -> Vec<(String, u32)> {
+    let mut frequencies = HashMap::<String, u32>::new();
+    let sentence = sentence.to_lowercase();
+    let sentence = replace_punctuation_with_space(sentence.as_str());
+
+    for word in sentence.split_whitespace() {
+        let frequency = frequencies.entry(word.into()).or_insert(0);
+        *frequency += 1;
+    }
+
+    let mut result = Vec::new();
+
+    for (word, frequency) in frequencies {
+        result.push((word, frequency));
+    }
+
+    // sort the result by frequency in descending order
+    result.sort_by(|a, b| b.1.cmp(&a.1));
+
+    result
+}
+
 fn main() {
+    let mut sentence = String::new();
+    println!("Enter a sentence: ");
+    std::io::stdin().read_line(&mut sentence).unwrap();
+    let sentence = sentence.trim();
+    if sentence.is_empty() {
+        panic!("Sorry, you didn't enter a sentence")
+    }
+
+    /*
     let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 3];
     let result = logic(numbers);
     //print the results in a human readable format that explains what the result is.
@@ -55,4 +99,11 @@ fn main() {
         "The frequency of each number in the vector is: {:?}",
         result
     );
+    */
+
+    let result = logic_sentence(sentence);
+    println!("The frequency of each word in the sentence is: ");
+    for (word, frequency) in result {
+        println!("{}: {}", frequency, word);
+    }
 }
