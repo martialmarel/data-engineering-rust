@@ -1,3 +1,59 @@
+/*
+Ask 1: How does the PageRank algorithm calculate the importance of each node in the graph?
+Answer: The PageRank algorithm, developed by Google's founders, is a way of measuring the importance
+of website pages. It works by counting the number and quality of links to a page to determine a
+rough estimate of how important the website is. The underlying assumption is that more important
+websites are likely to receive more links from other websites.
+
+Here's a simplified explanation of how it works:
+
+    1. Start with a directed graph where each node represents a webpage and each edge represents a link from one page to another.
+
+    2. Assign each node a preliminary rank value. This could be 1/N for a graph of N nodes.
+
+    3. For each node, distribute its current rank value equally among its outgoing links.
+
+    4. Each node's new rank becomes the sum of the rank values received from other nodes.
+
+    5. Repeat steps 3 and 4 until the ranks converge (i.e., they don't change significantly between
+    iterations).
+
+    6. The final rank values are the PageRanks of the nodes.
+
+Please note that this is a simplified explanation. The actual PageRank algorithm involves more
+complex mathematical concepts and considerations.
+
+
+Ask 2: What is the effect of the damping factor on the PageRank algorithm?
+Answer: the algorithm includes a damping factor (usually set to 0.85) to account for the fact
+that not all surfers will follow all links from a page.
+This factor is applied in step 3, where each node distributes not its full rank, but a portion of it.
+
+
+Ask 3: What is the purpose of running the algorithm for a certain number of iterations?
+Answer: In many algorithms, especially those involving optimization or approximation, running the
+algorithm for a certain number of iterations serves a few purposes:
+
+    1. Convergence: Some algorithms are iterative in nature and reach their goal gradually.
+    They start with an initial guess and improve upon it with each iteration.
+    After a certain number of iterations, the solution may converge, meaning it doesn't
+    significantly change after that point.
+
+    2. Performance: Limiting the number of iterations can control the computational cost.
+    More iterations usually mean more computation time and resources.
+    By setting a limit, you can balance between getting a good enough solution and not using
+    excessive resources.
+
+    3. Preventing infinite loops: In some cases, an algorithm might keep running indefinitely
+    without reaching a satisfactory solution. Setting a maximum number of iterations can prevent
+    this.
+
+In the context of the PageRank algorithm, it's typically run for many iterations until the ranks of
+the pages (nodes) converge, i.e., they don't change significantly between iterations.
+The number of iterations needed can depend on the size and structure of the web graph and the degree
+of precision desired in the PageRank values.
+*/
+
 // Importing the fill function from the textwrap crate to wrap text at 78 characters per line.
 use textwrap::fill;
 
