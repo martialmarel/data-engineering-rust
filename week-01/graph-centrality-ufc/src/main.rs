@@ -104,6 +104,14 @@ fn main() {
         let closeness = 1.0 / degree;
         println!("The closeness centrality of {} is {:.2}", name, closeness);
 
+        // Betweenness centrality, not sure if it's correct
+        // I think, it should be use https://docs.rs/petgraph/latest/petgraph/graph/struct.Graph.html#method.edges_connecting
+        // let betweenness = graph
+        //     .edges_connecting(node, )
+        //     .count() as f32
+        //     / (fighter_nodes.len() - 1) as f32;
+        //println!("The betweenness centrality of {} is {:.2}", name, betweenness);
+
         // Explanation
         match name.as_str() {
             "Conor McGregor" => println!(
