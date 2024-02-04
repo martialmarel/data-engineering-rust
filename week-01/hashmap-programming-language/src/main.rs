@@ -1,3 +1,40 @@
+/*
+Ask 1: How does the calculate_weights function determine the weight of each language?
+Answer: the calculate_weights function determines the weight of each language according to its
+age (year of creation) relative to now.
+The older the language, the greater its weight.
+
+
+Ask 2: How does the code ensure that the weights are normalized between 1 and 100?
+Answer: The code will query the HashMap to find the min and max values, and in the event of failure
+set them to 0.
+
+The code is performing a normalization operation on a variable year. Normalization is a technique often used in data
+processing to change the values of numeric columns in a dataset to a common scale, without distorting differences in
+the ranges of values or losing information.
+
+Here's a of what the code does:
+
+    1. (year - min_year) as f64: This operation subtracts the minimum year (min_year) from the given year (year).
+    The result is the distance of year from the minimum year.
+
+    2. (max_year - min_year) as f64: This operation subtracts the minimum year from the maximum year.
+    This gives the total range of years.
+
+    3. (year - min_year) as f64 / (max_year - min_year) as f64: Finally, the code divides the distance of year from the
+    minimum year by the total range of years.
+    This results in a normalized value for year that falls between 0 and 1 (inclusive).
+
+
+Ask 3: Why does the code use values_mut when updating the years in the calculate_weights function?
+Answer: The values_mut function is used in Rust when you want to get a mutable reference to the values of a collection,
+such as a Vector or a HashMap.
+
+In Rust, variables are immutable by default. This means that once a variable is initialized with a value, you can't
+change that value. However, you can override this behavior by using the mut keyword, which allows you to change the
+value of a variable.
+*/
+
 use std::collections::HashMap;
 
 fn init_languages() -> HashMap<String, i32> {
