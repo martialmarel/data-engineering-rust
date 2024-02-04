@@ -57,7 +57,7 @@ fn init_languages() -> HashMap<String, i32> {
     languages
 }
 
-fn calculate_weights(years_active: &mut HashMap<String, i32>) -> HashMap<String, i32> {
+fn calculate_weights(years_active: &mut HashMap<String, i32>) -> Vec<(String, i32)> {
     // Subtract the creation year from 2024 to get the number of years active.
     for year in years_active.values_mut() {
         *year = 2024 - *year;
@@ -74,11 +74,32 @@ fn calculate_weights(years_active: &mut HashMap<String, i32>) -> HashMap<String,
         weights.insert(language.to_string(), weight);
     }
 
+    // order by weight
+    let mut weights: Vec<_> = weights.into_iter().collect();
+    weights.sort_by(|a, b| b.1.cmp(&a.1));
+
     weights
 }
 
 fn main() {
     let mut languages = init_languages();
+
+    // read stdin
+    loop {
+        println!("Enter a language name (or press Enter to finish): ");
+        let mut language_name = String::new();
+        std::io::stdin().read_line(&mut language_name).unwrap();
+        let language_name = language_name.trim();
+        if language_name.is_empty() {
+            break;
+        }
+        println!("Enter a language year: ");
+        let mut language_year = String::new();
+        std::io::stdin().read_line(&mut language_year).unwrap();
+        let language_year = language_year.trim().parse::<i32>().unwrap();
+        languages.insert(language_name.to_string(), language_year);
+    }
+
     let weights = calculate_weights(&mut languages);
 
     println!("Language weighing from 1-100 by age (1 is newest and 100 is oldest):");
