@@ -1,4 +1,4 @@
-use etl::{extract_transform_load, summarize, RawData};
+use etl::{extract_transform_load, summarize, write_to_csv, RawData};
 
 fn main() {
     let raw = vec![
@@ -23,4 +23,7 @@ fn main() {
         "Cleaned Data summarize - total: {} - average: {}",
         summary.total, summary.average
     );
+
+    let file_name = "cleaned_data.csv";
+    write_to_csv(&cleaned, file_name).expect("Error writing to CSV");
 }

@@ -1,10 +1,12 @@
+use serde::{Deserialize, Serialize};
+
 #[derive(Debug)]
 pub struct RawData {
     pub id: u32,
     pub value: i32,
 }
 
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct CleanData {
     pub id: u32,
     pub value: i32,
@@ -36,6 +38,20 @@ pub fn summarize(cleaned: &Vec<CleanData>) -> Summary {
     let average = total as f64 / count as f64;
 
     Summary { total, average }
+}
+
+pub fn write_to_csv(cleaned: &Vec<CleanData>, filename: &str) -> std::io::Result<()> {
+    let mut wtr = csv::WriterBuilder::new()
+        .has_headers(true)
+        .delimiter(b';')
+        .from_path(filename)?;
+
+    for item in cleaned {
+        wtr.serialize(item)?;
+    }
+
+    wtr.flush()?;
+    Ok(())
 }
 
 #[cfg(test)]
@@ -111,5 +127,21 @@ mod tests {
 
         assert_eq!(summary.total, 60);
         assert_eq!(summary.average, 20.0);
+    }
+
+    #[test]
+    fn write_to_csv_test() {
+        let cleaned = vec![
+            CleanData { id: 1, value: 10 },
+            CleanData { id: 2, value: 20 },
+            CleanData { id: 3, value: 30 },
+        ];
+
+        let file_name = "cleaned_data_test.csv";
+        write_to_csv(&cleaned, file_name).expect("Error writing to CSV");
+
+        let reader = std::fs::read(file_name).expect("Error reading file");
+        let reader = String::from_utf8(reader).expect("Error to convert to string");
+        assert_eq!(reader, "id;value\n1;10\n2;20\n3;30\n");
     }
 }
