@@ -1,16 +1,4 @@
-// ETL Example
-
-#[derive(Debug)]
-struct RawData {
-    id: u32,
-    value: i32,
-}
-
-#[derive(Debug)]
-struct CleanData {
-    id: u32,
-    value: i32,
-}
+use etl::{extract_transform_load, RawData};
 
 fn main() {
     let raw = vec![
@@ -29,14 +17,4 @@ fn main() {
     for item in &cleaned {
         println!("Clean Data: Id - {:?} Value - {:?}", item.id, item.value); // Accessing the fields
     }
-}
-
-// Perform ETL process
-fn extract_transform_load(raw: Vec<RawData>) -> Vec<CleanData> {
-    raw.into_iter()
-        .map(|r| CleanData {
-            id: r.id,
-            value: r.value.max(0),
-        })
-        .collect()
 }
