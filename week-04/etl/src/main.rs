@@ -1,4 +1,4 @@
-use etl::{extract_transform_load, RawData};
+use etl::{extract_transform_load, summarize, RawData};
 
 fn main() {
     let raw = vec![
@@ -17,4 +17,10 @@ fn main() {
     for item in &cleaned {
         println!("Clean Data: Id - {:?} Value - {:?}", item.id, item.value); // Accessing the fields
     }
+
+    let summary = summarize(&cleaned);
+    println!(
+        "Cleaned Data summarize - total: {} - average: {}",
+        summary.total, summary.average
+    );
 }
